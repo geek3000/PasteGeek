@@ -21,6 +21,8 @@ def home(request):
             else:
                 new_item = Paste(title=title, paste_text=paste_text, user=user)
             new_item.save()
+            return redirect('/pastes/')
+        else:
             return render(request, 'pastebin_app/views/index.html',  {'form': form})
     return render(request, 'pastebin_app/views/index.html',  {'form': form})
 
@@ -31,10 +33,14 @@ def list(request):
 
 
 def display(request, id):
-    paste = Paste.objects.filter(id=id)
+    pastes = Paste.objects.filter(id=id)
     comments = Comment.objects.filter(id_paste=id)
     form = CommentForm(request.POST or None)
-    return render(request, 'pastebin_app/views/display.html',  {'paste': paste[0], 'form': form, 'comments': comments})
+    try:
+        paste=pastes[0]
+    except:
+        paste=False
+    return render(request, 'pastebin_app/views/display.html',  {'paste': paste, 'form': form, 'comments': comments})
 
 
 def save_comment(request, id):
@@ -46,9 +52,9 @@ def save_comment(request, id):
             comment = form.cleaned_data['comment']
             new_comment = Comment(name=name, comment=comment, id_paste=id)
             new_comment.save()
-            return redirect("/pastes/"+str(id))
+            return redirect("/pastes/"+str(id), {'form': form})
         else:
-            return redirect("/pastes/"+str(id))
+            return redirect("/pastes/"+str(id), {'form': form})
 
 def delete(request, id):
     paste=Paste.objects.filter(id=id)

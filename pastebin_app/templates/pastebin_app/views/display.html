@@ -18,10 +18,20 @@
 </head>
 
 <body>
-    <h1 class="mt-2">Geek Paste</h1>
-    <hr class="mt-0 mb-4">
-    <div class="row justify-content-center">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+        <div class="col-4">
+            <a href="/" class="navbar-brand">
+                <h4>GeekPaste</h4>
+            </a>
+        </div>
+        <div class="col-2  text-right">
+            <a href="/pastes/"><button type="submit" class="btn btn-success">See Pastes!!</button></a>
+        </div>
+    </nav>
+    {% if paste %}
+    <div class="row justify-content-center" style="margin-top: 90px !important;">
         <div class="col-8">
+
             <div class="card bg-primary justify-content-center">
                 <div class="card-header mb-9">
                     <h5 class="card-title">{{ paste.title }}</h5>
@@ -41,7 +51,8 @@
     </div>
     <hr class="mt-5 mb-0">
     <div class="row">
-        <div class="col-4 justify-content-right">
+        <div class="col-4 justify-content-right" style="margin-left: 40px;">
+            <h4>Comments</h4>
             {% load crispy_forms_tags %}
             <form method="post" action="/comment/{{ paste.id }}/" novalidate>
                 {% csrf_token %}
@@ -50,22 +61,32 @@
             </form>
         </div>
 
-        <div class="col-8 justify-content-left">
+        <div class="col-7">
             {% load crispy_forms_tags %}
-            <div class="list-group">
+            <div class="list-group justify-content-right"  style="margin-right: 40px;">
                 {% for comment in comments %}
-                <span class="list-group-item list-group-item-action flex-column align-items-start active">
+                <span class="list-group-item list-group-item-action flex-column bg-success text-white">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class=" mb-1 ">{{ comment.name }}</h5>
                     </div>
                     <p class="text-center mb-1">{{ comment.comment }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted text-right">{{ paste.date }}</h6>
+                    <h6 class="card-subtitle mb-2 text-right">{{ paste.date }}</h6>
                 </span>
                 <hr class="mt-0 mb-4">
                 {% endfor %}
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="card bg-primary" style="margin-top: 90px !important;">
+
+        <div class="card-body">
+            <p class="card-text   justify-content-center">
+                <marquee>I can't find this paste</marquee>
+            </p>
+        </div>
+    </div>
+    {% endif %}
 </body>
 
 </html>

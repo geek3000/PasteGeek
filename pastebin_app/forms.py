@@ -1,9 +1,12 @@
 from django import forms
 FAVORITE_COLORS_CHOICES = [
+    ('plaintext', 'Plain Text'),
     ('html', 'Html'),
     ('css', 'Css'),
     ('javascript', 'Javascript'),
     ('python', 'Python'),
+    ('php', 'Php'),
+    ('java', 'Java'),
 ]
 
 class PasteForm(forms.Form):
@@ -15,6 +18,6 @@ class PasteForm(forms.Form):
     user = forms.CharField(max_length=10)
 
 class CommentForm(forms.Form):
-    Name = forms.CharField(max_length=10)
-    comment = forms.CharField(widget=forms.Textarea, help_text="Your comment Here!")
+    Name = forms.CharField(max_length=10, required=True)
+    comment = forms.CharField(widget=forms.Textarea, help_text="Your comment Here!", required=True)
     
