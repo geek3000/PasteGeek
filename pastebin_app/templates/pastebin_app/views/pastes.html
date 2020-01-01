@@ -15,40 +15,42 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-        <div class="col-4">
-            <a href="/" class="navbar-brand">
-                <h4>GeekPaste</h4>
-            </a>
-        </div>
-        <div class="col-2  text-right">
-            <a href="/pastes/"><button type="submit" class="btn btn-success">See Pastes!!</button></a>
-        </div>
-    </nav>
-    <div class="row justify-content-center" style="margin-top: 90px !important;">
-        <div class="col-8">
-            <div class="list-group">
-                {% if pastes %}
-                {% for paste in pastes %}
-                <a href="/pastes/{{ paste.id }}"
-                    class="list-group-item list-group-item-action flex-column align-items-start active">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ paste.title }}</h5>
-                        <small>{{ paste.user }}</small>
-                    </div>
-                    <p class="mb-1">{{ paste.paste_text|truncatewords:80 }}</p>
-                    <small>{{ paste.date }}</small>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-expand-sm navbar-dark fixed-top bg-primary">
+            <div class="">
+                <a href="/" class="navbar-brand">
+                    <h4>GeekPaste</h4>
                 </a>
-                <hr class="mt-0 mb-4">
-                {% endfor %}
+            </div>
+            <div class="offset-md-8 offset-lg-8">
+                <a href="/pastes/"><button type="submit" class="btn btn-success">See Pastes!!</button></a>
+            </div>
+        </nav>
+        <div class="row justify-content-center" style="margin-top: 90px !important;">
+            <div class="col-8">
+                <div class="list-group">
+                    {% if pastes %}
+                    {% for paste in pastes %}
+                    <a href="/pastes/{{ paste.id }}"
+                        class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ paste.title }}</h5>
+                            <small>{{ paste.user }}</small>
+                        </div>
+                        <p class="mb-1">{{ paste.paste_text|truncatewords:80 }}</p>
+                        <small>{{ paste.date }}</small>
+                    </a>
+                    <hr class="mt-0 mb-4">
+                    {% endfor %}
 
-                {% else %}
-                <div class="card bg-primary justify-content-center" style="height: 100px;">
-                    <div class="">
-                        <marquee><span class="text-center">You don't have any paste</span></marquee>
+                    {% else %}
+                    <div class="card bg-primary justify-content-center" style="height: 100px;">
+                        <div class="">
+                            <marquee><span class="text-center">You don't have any paste</span></marquee>
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
