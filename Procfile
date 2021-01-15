@@ -1,1 +1,1 @@
-web: gunicorn geekpastebin.wsgi
+web: gunicorn geekpastebin.wsgi.application
