@@ -1,1 +1,1 @@
-web: gunicorn pastebin.wsgi
+web: gunicorn geekpastebin.wsgi
